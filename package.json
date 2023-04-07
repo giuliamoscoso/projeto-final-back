@@ -1,0 +1,28 @@
+{
+    "name": "projeto-final-back",
+    "version": "1.0.0",
+    "description": "Back-end do projeto final - Desenvolvimento Web",
+    "main": "index.js",
+    "scripts": {
+        "dev": "npx ts-node index.ts"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/giuliamoscoso/projeto-final-back.git"
+    },
+    "author": "Giulia Moscoso",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/giuliamoscoso/projeto-final-back/issues"
+    },
+    "homepage": "https://github.com/giuliamoscoso/projeto-final-back#readme",
+    "devDependencies": {
+        "@types/node": "^18.15.11",
+        "prisma": "^4.12.0",
+        "ts-node": "^10.9.1",
+        "typescript": "^5.0.4"
+    },
+    "dependencies": {
+        "@prisma/client": "^4.12.0"
+    }
+}
