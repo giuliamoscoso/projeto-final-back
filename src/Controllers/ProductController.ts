@@ -8,11 +8,11 @@ export default {
         try {
             const allProducts = await prisma.produtos.findMany();
 
-            if (!allProducts) return res.json({ error: "Não foi possível encontrar os produtos" });
+            if (!allProducts) return res.json({ error: "Não foi possível encontrar os produtos" }).sendStatus(400);
 
-            return res.json(allProducts);
+            return res.json(allProducts).sendStatus(200);
         } catch (error) {
-            return res.json({ error: "Ocorreu um erro na obtenção dos produtos" });
+            return res.json({ error: "Ocorreu um erro na obtenção dos produtos" }).sendStatus(500);
         }
     },
 
@@ -22,7 +22,7 @@ export default {
 
             let product = await prisma.produtos.findFirst({ where: { CodBarras: CodBarras } });
 
-            if (product) return res.json({ error: "Produto já existe" });
+            if (product) return res.json({ error: "Produto já existe" }).sendStatus(400);
 
             product = await prisma.produtos.create({
                 data: {
@@ -33,29 +33,25 @@ export default {
                 },
             });
 
-            return res.json(product);
+            return res.json(product).sendStatus(200);
         } catch (error) {
-            return res.json({ error: "Ocorreu um erro na criação do produto" });
+            return res.json({ error: "Ocorreu um erro na criação do produto" }).sendStatus(500);
         }
     },
 
-    // async deleteProduct(req: Request, res: Response) {
-    //     try {
-    //         console.log(req.params);
+    async deleteProduct(req: Request, res: Response) {
+        try {
+            const { Id } = req.params;
 
-    //         const { Id } = req.params;
+            const product = await prisma.produtos.findFirst({ where: { Id: Number(Id) } });
 
-    //         console.log(Id);
+            if (!product) return res.json({ error: "Não foi possível encontrar o produto" }).sendStatus(400);
 
-    //         const product = await prisma.produtos.findFirst({ where: { Id: Number(Id) } });
+            await prisma.produtos.delete({ where: { Id: Number(Id) } });
 
-    //         if (product === null) return res.json({ error: "Não foi possível encontrar o produto" });
-
-    //         await prisma.produtos.delete({ where: { Id: Number(Id) } });
-
-    //         return res.json({ message: "Usuário deletado com sucesso" });
-    //     } catch (error) {
-    //         return res.json({ error: "Ocorreu um erro na obtenção desse usuário" });
-    //     }
-    // },
+            return res.json({ message: "Usuário deletado com sucesso" }).sendStatus(200);
+        } catch (error) {
+            return res.json({ error: "Ocorreu um erro na obtenção desse usuário" }).sendStatus(500);
+        }
+    },
 };

@@ -5,7 +5,10 @@ import ProductController from "./Controllers/ProductController";
 
 const router = Router();
 
-router.get("/produtos", ProductController.findAllUProducts).put("/usuarios", UserController.createUser).post("/produtos", ProductController.createProduct);
-// .delete("/produtos/:id", ProductController.deleteProduct);
+router
+    .get("/produtos", ProductController.findAllUProducts)
+    .put("/usuarios", UserController.createUser)
+    .post("/produtos", ProductController.createProduct)
+    .delete("/produtos/:Id", ProductController.deleteProduct);
 
 export { router };
